@@ -1,0 +1,76 @@
+Downloading 5 samples from VCTK mirror on HuggingFace...
+Generating train split: 0 examples [00:00, ? examples/s]Generating train split: 0 examples [00:00, ? examples/s]
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 1588, in _prepare_split_single
+    example = self.info.features.encode_example(record) if self.info.features is not None else record
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/features/features.py", line 2054, in encode_example
+    return encode_nested_example(self, example)
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/features/features.py", line 1345, in encode_nested_example
+    {k: encode_nested_example(schema[k], obj.get(k), level=level + 1) for k in schema}
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/features/features.py", line 1345, in <dictcomp>
+    {k: encode_nested_example(schema[k], obj.get(k), level=level + 1) for k in schema}
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/features/features.py", line 1368, in encode_nested_example
+    return schema.encode_example(obj) if obj is not None else None
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/features/audio.py", line 108, in encode_example
+    from torchcodec.encoders import AudioEncoder  # needed to write audio files
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/__init__.py", line 12, in <module>
+    from . import decoders, encoders, samplers  # noqa
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/decoders/__init__.py", line 7, in <module>
+    from .._core import AudioStreamMetadata, VideoStreamMetadata
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/_core/__init__.py", line 8, in <module>
+    from ._metadata import (
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/_core/_metadata.py", line 16, in <module>
+    from torchcodec._core.ops import (
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/_core/ops.py", line 104, in <module>
+    ffmpeg_major_version, core_library_path = load_torchcodec_shared_libraries()
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/_core/ops.py", line 75, in load_torchcodec_shared_libraries
+    raise RuntimeError(
+RuntimeError: Could not load libtorchcodec. Likely causes:
+          1. FFmpeg is not properly installed in your environment. We support
+             versions 4, 5, 6, 7, and 8. On Windows, ensure you've installed
+             the "full-shared" version which ships DLLs.
+          2. The PyTorch version (2.5.1) is not compatible with
+             this version of TorchCodec. Refer to the version compatibility
+             table:
+             https://github.com/pytorch/torchcodec?tab=readme-ov-file#installing-torchcodec.
+          3. Another runtime dependency; see exceptions below.
+        The following exceptions were raised as we tried to load libtorchcodec:
+        
+[start of libtorchcodec loading traceback]
+FFmpeg version 8: dlopen(/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core8.dylib, 0x0006): Library not loaded: @rpath/libavutil.60.dylib
+  Referenced from: <2BA650F4-E163-3EF6-A721-BAA8124FD98E> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core8.dylib
+  Reason: tried: '/opt/anaconda3/envs/voice-evo/lib/python3.10/lib-dynload/../../libavutil.60.dylib' (no such file), '/opt/anaconda3/envs/voice-evo/bin/../lib/libavutil.60.dylib' (no such file)
+FFmpeg version 7: dlopen(/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core7.dylib, 0x0006): Symbol not found: __ZNK3c1011StorageImpl27throw_data_ptr_access_errorEv
+  Referenced from: <F30C4BFA-27B3-3E5D-A15C-8DC702492F60> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core7.dylib
+  Expected in:     <BBED4416-C860-3134-B2D2-66A7BF308FF0> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torch/lib/libc10.dylib
+FFmpeg version 6: dlopen(/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core6.dylib, 0x0006): Library not loaded: @rpath/libavutil.58.dylib
+  Referenced from: <B4770D25-C5D3-3EB2-8FC9-9E593151E914> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core6.dylib
+  Reason: tried: '/opt/anaconda3/envs/voice-evo/lib/python3.10/lib-dynload/../../libavutil.58.dylib' (no such file), '/opt/anaconda3/envs/voice-evo/bin/../lib/libavutil.58.dylib' (no such file)
+FFmpeg version 5: dlopen(/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core5.dylib, 0x0006): Library not loaded: @rpath/libavutil.57.dylib
+  Referenced from: <C691B454-38D6-3DAA-8E82-5B3343177BF6> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core5.dylib
+  Reason: tried: '/opt/anaconda3/envs/voice-evo/lib/python3.10/lib-dynload/../../libavutil.57.dylib' (no such file), '/opt/anaconda3/envs/voice-evo/bin/../lib/libavutil.57.dylib' (no such file)
+FFmpeg version 4: dlopen(/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core4.dylib, 0x0006): Library not loaded: @rpath/libavutil.56.dylib
+  Referenced from: <31E5A278-AF4F-375B-A165-F534C6F97B07> /opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/torchcodec/libtorchcodec_core4.dylib
+  Reason: tried: '/opt/anaconda3/envs/voice-evo/lib/python3.10/lib-dynload/../../libavutil.56.dylib' (no such file), '/opt/anaconda3/envs/voice-evo/bin/../lib/libavutil.56.dylib' (no such file)
+[end of libtorchcodec loading traceback].
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/harshityadav/Desktop/voice-evolution/scripts/ingest_vctk.py", line 77, in <module>
+    main(n=args.n)
+  File "/Users/harshityadav/Desktop/voice-evolution/scripts/ingest_vctk.py", line 31, in main
+    ds = load_dataset("badayvedat/VCTK", split=f"train[:{n}]")
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/load.py", line 1417, in load_dataset
+    builder_instance.download_and_prepare(
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 897, in download_and_prepare
+    self._download_and_prepare(
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 1612, in _download_and_prepare
+    super()._download_and_prepare(
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 973, in _download_and_prepare
+    self._prepare_split(split_generator, **prepare_split_kwargs)
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 1450, in _prepare_split
+    for job_id, done, content in self._prepare_split_single(
+  File "/opt/anaconda3/envs/voice-evo/lib/python3.10/site-packages/datasets/builder.py", line 1607, in _prepare_split_single
+    raise DatasetGenerationError("An error occurred while generating the dataset") from e
+datasets.exceptions.DatasetGenerationError: An error occurred while generating the dataset

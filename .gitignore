@@ -1,63 +1,17 @@
-# --------------------
-# Python
-# --------------------
+# ====================
+# Minimal gitignore
+# (Only system junk)
+# ====================
+
+# OS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+
+# Python cache (safe to ignore)
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.env
-.venv
-venv/
-
-# --------------------
-# OS / Editor
-# --------------------
-.DS_Store
-.idea/
-.vscode/
-
-# --------------------
-# Datasets (never push)
-# --------------------
-datasets/
-data/*.wav
-data/*.flac
-
-# --------------------
-# Embeddings & versions (runtime)
-# --------------------
-embeddings/
-versions/*.npy
-versions/version_*/
-versions/versions.csv
-versions/versions_with_relative_age.csv
-
-# --------------------
-# User runtime data (PII)
-# --------------------
-users/*.json
-user/*.json
-
-# --------------------
-# Learning artifacts (generated)
-# --------------------
-learning/age_embedding_dataset.csv
-learning/models/
-models/*.pt
-models/*.joblib
-
-# --------------------
-# Logs & temp
-# --------------------
-*.log
-cache/
-logs/
-runtime/
-tmp_*
-incoming_audio/
-preprocessed/
-
-# --------------------
-# Streamlit secrets
-# --------------------
-.streamlit/secrets.toml

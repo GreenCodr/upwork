@@ -1,0 +1,224 @@
+{
+  "user_id": "user_001",
+  "date_of_birth": "1999-05-14",
+  "created_utc": "2025-12-18T12:13:35.560765Z",
+  "registered_devices": [],
+  "voice_versions": [
+    {
+      "version_id": "v001",
+      "recorded_utc": "2025-12-18T12:13:35.561567Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/sample.npy",
+      "audio_path": "audio/sample.wav",
+      "confidence": 0.95,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.751379Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0005_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0005.flac",
+      "confidence": 0.884,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.756207Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-33396-0019_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/33396/5142-33396-0019.flac",
+      "confidence": 0.786,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.761794Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135766-0003_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135766/1221-135766-0003.flac",
+      "confidence": 0.958,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.766950Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0014_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0014.flac",
+      "confidence": 0.955,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.770912Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135766-0004_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135766/1221-135766-0004.flac",
+      "confidence": 0.893,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.774940Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5696-0010_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5696/3570-5696-0010.flac",
+      "confidence": 0.896,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.778269Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-33396-0022_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/33396/5142-33396-0022.flac",
+      "confidence": 0.822,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.781057Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-33396-0057_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/33396/5142-33396-0057.flac",
+      "confidence": 0.776,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.786107Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5694-0021_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5694/3570-5694-0021.flac",
+      "confidence": 0.957,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.792390Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135767-0012_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135767/1221-135767-0012.flac",
+      "confidence": 0.957,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.797078Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0004_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0004.flac",
+      "confidence": 0.955,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.804838Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135767-0004_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135767/1221-135767-0004.flac",
+      "confidence": 0.958,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.808195Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-36377-0002_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/36377/5142-36377-0002.flac",
+      "confidence": 0.847,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.814024Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0012_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0012.flac",
+      "confidence": 0.957,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.818022Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135766-0007_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135766/1221-135766-0007.flac",
+      "confidence": 0.928,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.821407Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-36377-0000_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/36377/5142-36377-0000.flac",
+      "confidence": 0.787,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.826346Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135766-0000_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135766/1221-135766-0000.flac",
+      "confidence": 1.0,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.833639Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/1221-135767-0006_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/1221/135767/1221-135767-0006.flac",
+      "confidence": 0.958,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.838013Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0011_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0011.flac",
+      "confidence": 0.915,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.840596Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-33396-0061_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/33396/5142-33396-0061.flac",
+      "confidence": 0.755,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.843418Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-36377-0018_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/36377/5142-36377-0018.flac",
+      "confidence": 0.827,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.846477Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/3570-5695-0000_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/3570/5695/3570-5695-0000.flac",
+      "confidence": 0.828,
+      "type": "RECORDED"
+    },
+    {
+      "version_id": "1765921545",
+      "recorded_utc": "2025-12-16T21:45:45.849964Z",
+      "age_at_recording": 26,
+      "embedding_path": "embeddings/5142-33396-0054_wav2vec_emb.npy",
+      "audio_path": "datasets/librispeech/LibriSpeech/test-clean/5142/33396/5142-33396-0054.flac",
+      "confidence": 0.851,
+      "type": "RECORDED"
+    }
+  ]
+}
