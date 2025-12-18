@@ -1,2 +1,0 @@
-file_path,speaker_id,dob,recording_date,dataset_source,notes
-preprocessed/test_tone_preproc.wav,spk_test_001,1995-01-01,2025-12-10,local,initial test tone preprocessed

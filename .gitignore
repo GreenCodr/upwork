@@ -1,4 +1,39 @@
-# ====================
+# Python
+__pycache__/
+*.pyc
+
+# Environments
+.env
+.venv
+env/
+voice-evo/
+
+# OS
+.DS_Store
+
+# ======================
+# LARGE / RUNTIME FILES
+# ======================
+
+# Datasets
+datasets/
+data/
+notebooks/
+
+# Models & weights
+models/*.pt
+learning/models/*.joblib
+
+# Embeddings
+embeddings/
+versions/
+*.npy
+
+# Logs
+*.log
+
+# Streamlit secrets
+.streamlit/secrets.toml# ====================
 # Minimal gitignore
 # (Only system junk)
 # ====================
