@@ -1,3 +1,13 @@
+---
+title: Voice Evolution System
+emoji: 🎙️
+colorFrom: purple
+colorTo: indigo
+sdk: streamlit
+sdk_version: "1.30.0"
+app_file: frontend/app.py
+pinned: false
+---
 # 🎙️ Voice Evolution System
 
 Automatic Voice Change Detection, Age-Based Playback & Future Voice Prediction
