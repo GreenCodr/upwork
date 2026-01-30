@@ -1,4 +1,2 @@
+
 ffmpeg
-espeak-ng
-sox
-libsndfile1

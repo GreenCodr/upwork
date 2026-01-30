@@ -1,10 +1,11 @@
 import sys
-import os
+from pathlib import Path
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, ROOT)
-sys.path.insert(0, os.path.join(ROOT, "frontend"))
+# Ensure project root is on PYTHONPATH
+PROJECT_ROOT = Path(__file__).resolve().parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
-from app import main
+from frontend.app import run_app
 
-main()
+run_app()

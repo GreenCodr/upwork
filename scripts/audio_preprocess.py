@@ -1,6 +1,8 @@
 import subprocess
 from pathlib import Path
 import uuid
+import os
+
 
 def normalize_audio(input_path: str) -> str:
     """
@@ -21,6 +23,19 @@ def normalize_audio(input_path: str) -> str:
         str(out_path)
     ]
 
-    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    result = subprocess.run(
+        cmd,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    # ✅ NEW: verify FFmpeg success
+    if result.returncode != 0:
+        raise RuntimeError(f"FFmpeg failed: {result.stderr}")
+
+    # ✅ NEW: verify output exists
+    if not out_path.exists() or out_path.stat().st_size == 0:
+        raise RuntimeError("FFmpeg produced empty or missing output file")
 
     return str(out_path)
