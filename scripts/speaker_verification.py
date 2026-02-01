@@ -1,96 +1,135 @@
 # scripts/speaker_verification.py
 
+from __future__ import annotations
+
+from typing import List, Dict, Optional, Union
+from pathlib import Path
 import numpy as np
-from scripts.user_registry import UserRegistry
+
 
 # ------------------ CORE MATH ------------------
 
 def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
-    a = a / np.linalg.norm(a)
-    b = b / np.linalg.norm(b)
-    return float(np.dot(a, b))
+    """
+    Cosine similarity between two vectors.
+    Safe against zero norms / NaNs.
+    """
+    if a is None or b is None:
+        return 0.0
+
+    a = np.asarray(a, dtype=np.float32).reshape(-1)
+    b = np.asarray(b, dtype=np.float32).reshape(-1)
+
+    na = float(np.linalg.norm(a))
+    nb = float(np.linalg.norm(b))
+    if na == 0.0 or nb == 0.0:
+        return 0.0
+
+    sim = float(np.dot(a, b) / (na * nb))
+    if not np.isfinite(sim):
+        return 0.0
+    return sim
 
 
 # ------------------ LOW-LEVEL GATE ------------------
 
 def speaker_verification_gate(
     new_emb: np.ndarray,
-    reference_embs: list,
+    reference_embs: List[np.ndarray],
     threshold: float = 0.80
-) -> dict:
+) -> Dict[str, Optional[float]]:
     """
     Low-level speaker verification gate.
+
+    Returns:
+      {
+        "accepted": bool,
+        "best_similarity": float,   # ALWAYS float (never None)
+        "reason": str
+      }
     """
 
-    if len(reference_embs) == 0:
-        return {
-            "accepted": True,
-            "best_similarity": None,
-            "reason": "First recording (no verification needed)"
-        }
-
-    similarities = [
-        cosine_similarity(new_emb, ref)
-        for ref in reference_embs
-    ]
-
-    best_sim = max(similarities)
-
-    if best_sim < threshold:
+    # If no references exist, we can't verify identity reliably.
+    # Your pipeline creates a baseline earlier, so this should be rare.
+    if not reference_embs:
         return {
             "accepted": False,
-            "best_similarity": best_sim,
-            "reason": "Speaker mismatch detected"
+            "best_similarity": 0.0,
+            "reason": "no_reference_embeddings",
+        }
+
+    best_sim = -1.0
+    for ref in reference_embs:
+        sim = cosine_similarity(new_emb, ref)
+        if sim > best_sim:
+            best_sim = sim
+
+    # Ensure numeric
+    if best_sim is None or not np.isfinite(best_sim):
+        best_sim = 0.0
+        return {
+            "accepted": False,
+            "best_similarity": 0.0,
+            "reason": "invalid_similarity",
+        }
+
+    if best_sim < float(threshold):
+        return {
+            "accepted": False,
+            "best_similarity": float(best_sim),
+            "reason": "speaker_mismatch_detected",
         }
 
     return {
         "accepted": True,
-        "best_similarity": best_sim,
-        "reason": None
+        "best_similarity": float(best_sim),
+        "reason": "accepted",
     }
 
 
-# ------------------ PIPELINE WRAPPER ------------------
+# ------------------ OPTIONAL WRAPPER ------------------
+# (Not used by your process_new_voice.py, but kept as a utility)
 
-def verify_speaker(user_id: str, embedding: np.ndarray) -> bool:
+def verify_speaker(
+    user_id: str,
+    audio_or_embedding: Union[str, Path, np.ndarray],
+    threshold: float = 0.80
+) -> bool:
     """
-    High-level speaker verification used by process_new_voice().
+    High-level speaker verification utility.
+
+    - If audio_or_embedding is a numpy array -> treated as embedding
+    - If it's a path/str -> embedding is extracted via scripts.embed_single_audio.extract_embedding
+
+    NOTE: This wrapper loads embeddings from user's stored voice_versions.
     """
 
-    registry = UserRegistry()
-    user = registry.get_user(user_id)
-
-    reference_embs = [
-        np.load(v["embedding_path"])
-        for v in user.get("voice_versions", [])
-        if v.get("embedding_path")
-    ]
-
-    result = speaker_verification_gate(
-        new_emb=embedding,
-        reference_embs=reference_embs
-    )
-
-    return result["accepted"]
-def verify_speaker(user_id: str, audio_path: str) -> bool:
-    """
-    High-level speaker verification entry.
-    """
+    # Lazy imports to avoid circular imports
     from scripts.user_registry import load_user
-    from scripts.embed_single_audio import extract_embedding
 
     user = load_user(user_id)
-    reference_embs = [
-        np.load(v["embedding_path"])
-        for v in user.get("voice_versions", [])
-        if "embedding_path" in v
-    ]
 
-    new_emb = extract_embedding(audio_path)
+    reference_embs: List[np.ndarray] = []
+    for v in user.get("voice_versions", []):
+        p = v.get("embedding_path")
+        if not p:
+            continue
+        try:
+            reference_embs.append(np.load(p).astype("float32"))
+        except Exception:
+            continue
+
+    # Get new embedding
+    if isinstance(audio_or_embedding, np.ndarray):
+        new_emb = audio_or_embedding.astype("float32")
+    else:
+        from scripts.embed_single_audio import extract_embedding
+        new_emb = extract_embedding(str(audio_or_embedding))
 
     result = speaker_verification_gate(
         new_emb=new_emb,
-        reference_embs=reference_embs
+        reference_embs=reference_embs,
+        threshold=threshold,
     )
 
-    return result["accepted"]
+    return bool(result["accepted"])

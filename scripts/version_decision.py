@@ -54,10 +54,10 @@ def days_since_last_version() -> Optional[int]:
 
 
 def decide_voice_version(
-    similarity: float,
+    similarity: Optional[float],
     confidence: float,
     speaker_ok: bool,
-    device_match: float,
+    device_match: Optional[float],
     embedding_path: str,
     audio_path: Optional[str],
     user_dob: Optional[str],
@@ -69,6 +69,25 @@ def decide_voice_version(
 
     recording_date = datetime.utcnow().date()
     age_at_recording = calculate_age(user_dob, recording_date)
+
+    # ==================================================
+    # NONE-SAFETY (DO NOT CRASH)
+    # ==================================================
+    # similarity can be None when speaker verification can't compute a score.
+    # We keep your core logic intact by:
+    # - rejecting if speaker_ok is False (already your logic)
+    # - otherwise treating similarity as 0.0 so comparisons/rounding are safe
+    if similarity is None:
+        log_event("SIMILARITY_MISSING", {
+            "reason": "speaker_similarity_none",
+            "speaker_ok": speaker_ok,
+            "confidence": confidence,
+        })
+        similarity = 0.0
+
+    # device_match can also be None in edge cases; keep comparisons safe
+    if device_match is None:
+        device_match = 0.0
 
     # ==================================================
     # HARD REJECTS (IDENTITY ONLY)

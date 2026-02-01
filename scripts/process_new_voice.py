@@ -24,6 +24,18 @@ MIN_DURATION_SEC = 10.0
 STRICT_SPEAKER_THRESHOLD = 0.75
 
 
+# ------------------ HELPERS ------------------
+
+def _safe_round(x, ndigits: int):
+    """Round safely: returns None if x is None or not a number."""
+    if x is None:
+        return None
+    try:
+        return round(float(x), ndigits)
+    except (TypeError, ValueError):
+        return None
+
+
 # ------------------ MAIN ENTRY ------------------
 
 def process_new_voice(user_id: str, audio_path: str) -> dict:
@@ -119,15 +131,19 @@ def process_new_voice(user_id: str, audio_path: str) -> dict:
         threshold=STRICT_SPEAKER_THRESHOLD,
     )
 
+    # Pull similarity once and keep it consistent
+    speaker_similarity = speaker.get("best_similarity", None)
+
     if not speaker["accepted"]:
         return {
             "accepted": False,
             "reason": "Different speaker detected",
-            "similarity": round(speaker["best_similarity"], 4),
+            # Fix: best_similarity might be None, so round safely
+            "similarity": _safe_round(speaker_similarity, 4),
         }
 
-    speaker_similarity = speaker["best_similarity"]
-
+    # Fix: even if accepted, similarity could still be None in edge cases
+    # (don’t crash; downstream logic already has None-guards)
     # ---------------- Device Fingerprint (SOFT) ----------------
     device_score = 1.0
     try:
@@ -142,7 +158,8 @@ def process_new_voice(user_id: str, audio_path: str) -> dict:
     # ---------------- Confidence (ADVISORY ONLY) ----------------
     confidence = compute_confidence(
         duration_s=quality.get("duration", duration),
-        snr_db=quality.get("snr_db", 0.0),
+        # Pass through None if missing (your confidence_engine already handles None)
+        snr_db=quality.get("snr_db", None),
         speaker_similarity=speaker_similarity,
         device_match=device_score,
         history_count=len(reference_embs),
@@ -163,7 +180,7 @@ def process_new_voice(user_id: str, audio_path: str) -> dict:
     )
 
     # ---------------- Persist ----------------
-    if decision["action"] == "CREATE_VERSION":
+    if decision.get("action") == "CREATE_VERSION":
         version_id = str(int(datetime.now(timezone.utc).timestamp()))
 
         emb_dir = PROJECT_ROOT / "versions" / "embeddings"
@@ -185,6 +202,7 @@ def process_new_voice(user_id: str, audio_path: str) -> dict:
         "change_detected": False,
         "decision": decision,
         "confidence": round(confidence, 3),
-        "similarity": round(speaker_similarity, 4),
+        # Fix: speaker_similarity can be None → safe rounding
+        "similarity": _safe_round(speaker_similarity, 4),
         "audio_quality_soft_fail": soft_quality_fail,
     }

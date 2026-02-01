@@ -1,17 +1,30 @@
 # scripts/confidence_engine.py
 
-from typing import Optional
+from typing import Optional, Union
 
 
 def clamp(x: float, lo: float = 0.0, hi: float = 1.0) -> float:
     return max(lo, min(x, hi))
 
 
+def _safe_float(x: Union[float, int, str, None], default: float = 0.0) -> float:
+    """
+    Convert to float safely.
+    If x is None or cannot be converted, return default.
+    """
+    if x is None:
+        return default
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return default
+
+
 def compute_confidence(
     duration_s: float,
     snr_db: Optional[float],
-    speaker_similarity: float,
-    device_match: float,
+    speaker_similarity: Optional[float],
+    device_match: Optional[float],
     history_count: int,
 ) -> float:
     """
@@ -35,10 +48,13 @@ def compute_confidence(
         snr_score = 0.7
 
     # ---------------- Speaker similarity (30%) ----------------
-    speaker_score = clamp(float(speaker_similarity))
+    # Fix: speaker_similarity can be None if verification couldn't compute a score.
+    # Keeping logic same: still clamps to [0, 1]. If None -> 0.0 (lowest confidence).
+    speaker_score = clamp(_safe_float(speaker_similarity, default=0.0))
 
     # ---------------- Device consistency (15%) ----------------
-    device_score = clamp(float(device_match))
+    # Fix: device_match can also be None sometimes.
+    device_score = clamp(_safe_float(device_match, default=0.0))
 
     # ---------------- History consistency (20%) ----------------
     if history_count >= 3:
