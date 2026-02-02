@@ -21,7 +21,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # ---- Copy the rest of the repo ----
 COPY . /app
 
-# ---- Hugging Face Spaces requires port 7860 ----
+# ---- Streamlit settings for containers ----
+# Hugging Face Docker Spaces expects port 7860
+ENV PORT=7860
 EXPOSE 7860
 
-CMD ["bash", "-lc", "streamlit run streamlit_app.py --server.address=0.0.0.0 --server.port=7860 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false"]
+CMD ["bash", "-lc", "streamlit run streamlit_app.py --server.address=0.0.0.0 --server.port=${PORT} --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false --server.enableXsrfProtection=false"]
