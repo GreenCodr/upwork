@@ -1,7 +1,7 @@
 # ---- Base image ----
 FROM python:3.11-slim
 
-# ---- System deps (for soundfile/libsndfile + common audio tooling) ----
+# ---- System deps (audio + ffmpeg) ----
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libsndfile1 \
     ffmpeg \
@@ -21,9 +21,14 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # ---- Copy the rest of the repo ----
 COPY . /app
 
-# ---- Streamlit settings for containers ----
-# Hugging Face Docker Spaces expects port 7860
-ENV PORT=7860
-EXPOSE 7860
+# ---- Streamlit settings (PORT 8501) ----
+ENV PORT=8501
+EXPOSE 8501
 
-CMD ["bash", "-lc", "streamlit run streamlit_app.py --server.address=0.0.0.0 --server.port=${PORT} --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false --server.enableXsrfProtection=false"]
+# ---- Run Streamlit ----
+CMD ["streamlit", "run", "streamlit_app.py", \
+     "--server.address=0.0.0.0", \
+     "--server.port=8501", \
+     "--server.headless=true", \
+     "--server.enableCORS=false", \
+     "--server.enableXsrfProtection=false"]
